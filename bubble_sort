@@ -1,0 +1,27 @@
+def bubble_sort(numbers):
+    """Sort the given list in place and return it."""
+    n = len(numbers)
+
+    for i in range(n - 1):
+        swapped = False
+
+        for j in range(n - i - 1):
+            if numbers[j] > numbers[j + 1]:
+                numbers[j], numbers[j + 1] = numbers[j + 1], numbers[j]
+                swapped = True
+
+        if not swapped:
+            break
+
+    return numbers
+
+
+if __name__ == "__main__":
+    assert bubble_sort([5, 1, 4, 2]) == [1, 2, 4, 5]
+    assert bubble_sort([3, 1, 3]) == [1, 3, 3]
+    assert bubble_sort([]) == []
+    assert bubble_sort([7]) == [7]
+    assert bubble_sort([-2, 5, -4]) == [-4, -2, 5]
+    assert bubble_sort([1, 2, 3]) == [1, 2, 3]
+
+    print("All 6 tests passed!")
