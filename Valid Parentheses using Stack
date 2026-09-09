@@ -1,0 +1,34 @@
+def is_valid_parentheses(text):
+    pairs = {
+        ")": "(",
+        "]": "[",
+        "}": "{"
+    }
+
+    stack = []
+
+    for bracket in text:
+        if bracket in "([{":
+            stack.append(bracket)
+
+        elif bracket in pairs:
+            if not stack or stack.pop() != pairs[bracket]:
+                return False
+
+        else:
+            return False
+
+    return len(stack) == 0
+
+
+if __name__ == "__main__":
+    assert is_valid_parentheses("()") is True
+    assert is_valid_parentheses("()[]{}") is True
+    assert is_valid_parentheses("{[()]}") is True
+    assert is_valid_parentheses("(]") is False
+    assert is_valid_parentheses("([)]") is False
+    assert is_valid_parentheses("(((") is False
+    assert is_valid_parentheses("") is True
+    assert is_valid_parentheses("(a)") is False
+
+    print("All 8 tests passed!")
