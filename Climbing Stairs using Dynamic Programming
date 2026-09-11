@@ -1,0 +1,34 @@
+def climbing_stairs(n):
+    """Return ways to climb n steps using 1 or 2 steps."""
+    if n < 0:
+        raise ValueError("Number of steps cannot be negative")
+
+    if n <= 1:
+        return 1
+
+    one_step_before = 1
+    two_steps_before = 1
+
+    for _ in range(2, n + 1):
+        current = one_step_before + two_steps_before
+        two_steps_before = one_step_before
+        one_step_before = current
+
+    return one_step_before
+
+
+if __name__ == "__main__":
+    assert climbing_stairs(0) == 1
+    assert climbing_stairs(1) == 1
+    assert climbing_stairs(2) == 2
+    assert climbing_stairs(3) == 3
+    assert climbing_stairs(5) == 8
+    assert climbing_stairs(10) == 89
+
+    try:
+        climbing_stairs(-1)
+        assert False
+    except ValueError:
+        pass
+
+    print("All 7 tests passed!")
