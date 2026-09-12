@@ -1,0 +1,52 @@
+#Example traversal:A → B → C → D → E → F
+
+#code
+
+from collections import deque
+
+def bfs(graph, start):
+    """Return the BFS traversal order from the start node."""
+    if start not in graph:
+        return []
+
+    visited = {start}
+    queue = deque([start])
+    traversal = []
+
+    while queue:
+        node = queue.popleft()
+        traversal.append(node)
+
+        for neighbour in graph.get(node, []):
+            if neighbour not in visited:
+                visited.add(neighbour)
+                queue.append(neighbour)
+
+    return traversal
+
+
+if __name__ == "__main__":
+    graph = {
+        "A": ["B", "C"],
+        "B": ["D", "E"],
+        "C": ["F"],
+        "D": [],
+        "E": [],
+        "F": []
+    }
+
+    assert bfs(graph, "A") == ["A", "B", "C", "D", "E", "F"]
+    assert bfs(graph, "B") == ["B", "D", "E"]
+    assert bfs(graph, "E") == ["E"]
+    assert bfs(graph, "Z") == []
+    assert bfs({}, "A") == []
+
+    cycle_graph = {
+        "A": ["B"],
+        "B": ["C"],
+        "C": ["A"]
+    }
+
+    assert bfs(cycle_graph, "A") == ["A", "B", "C"]
+
+    print("All 6 tests passed!")
